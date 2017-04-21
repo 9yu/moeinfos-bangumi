@@ -1,0 +1,133 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Moeinfos Bangumi / 番组">
+  <meta name="keywords" content="Moeinfos Bangumi 番组">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Moeinfos Bangumi / 番组</title>
+
+  <!-- Set render engine for 360 browser -->
+  <meta name="renderer" content="webkit">
+
+  <!-- No Baidu Siteapp-->
+  <meta http-equiv="Cache-Control" content="no-siteapp"/>
+
+  <link rel="icon" type="image/png" href="assets/i/favicon.png">
+
+  <!-- Add to homescreen for Chrome on Android -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" sizes="192x192" href="assets/i/moe192x192.png">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Moeinfos Bangumi / 番组"/>
+  <link rel="apple-touch-icon-precomposed" href="assets/i/moe72x72.png">
+
+  <!-- Tile icon for Win8 (144x144 + tile color) -->
+  <meta name="msapplication-TileImage" content="assets/i/moe192x192.png">
+  <meta name="msapplication-TileColor" content="#0e90d2">
+
+  <link rel="stylesheet" href="assets/css/amazeui.min.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+
+<body>
+<header id="bgm-header">
+  <div class="am-g am-g-fixed am-topbar">
+    <span class="am-text-ir"></span>
+    <h1 class="am-topbar-brand">Moeinfos Bangumi / 番组</h1>
+  </div>
+</header>
+  <div class="am-g am-g-fixed">
+    <blockquote>
+      <p>不断完善中……可能不定时抽风……</p>
+      <p>目前在线播放源都来自 Bilibili，下载源来自 dmhy。请点击[灰色方块]进行观看/下载~</p>
+      <p>tip: 若右侧标记<span class="am-icon-cloud-download am-icon-fw"></span>，则会复制磁力链接 magnet 到你的剪切板，请 ctrl+v 到 bt 下载器下载</p>
+    </blockquote>
+  </div>
+<section class="am-g am-g-fixed am-tabs" data-am-tabs="{noSwipe: 1}">
+    <ul class="am-u-md-2 am-tabs-nav am-nav" id="nav">
+      <li class="am-nav-header">周分类</li>
+      <li><a href="#tab1">周一</a></li>
+      <li><a href="#tab2">周二</a></li>
+      <li><a href="#tab3">周三</a></li>
+      <li><a href="#tab4">周四</a></li>
+      <li><a href="#tab5">周五</a></li>
+      <li><a href="#tab6">周六</a></li>
+      <li><a href="#tab7">周日</a></li>
+    </ul>
+  <article class="am-u-md-10 am-tabs-bd" id="content">
+  </article>
+</section>
+<footer id="bgm-footer">
+  <div class="am-g am-g-fixed">
+    <a href="//9yu.eu">❤</a>
+    <span>2017.</span>    
+  </div>
+</footer>
+
+<div>
+<script id="tmpl" type="text/html">
+{{each $data array i}}
+  <section class="am-tab-panel" id="tab{{i}}">
+    {{each array}}
+      <div class="am-u-sm-12 am-u-md-6 am-u-lg-4 am-cf" data-id="{{$value.id}}">
+        <a href="{{$value.bgmurl}}" class="am-align-left" target="_blank" title="去 Bangumi 查看「{{$value.title}}」"><img src="{{$value.thumb}}" /></a>
+        <div class="bangumi">
+          <a href="{{$value.broadcast.url}}" target="_blank" title="去 {{$value.broadcast.site}} 查看「{{$value.title}}」"><h3>{{$value.title}}</h3></a>
+            <div class="bgm-info">
+            <% if ($value.status == 0) { %>
+              <sapn class="bgm-status">未开播</sapn>
+            <% } else if (typeof($value.latest_ep) == 'object') { %>
+              <% if ($value.status == 2) { %>
+                <span class="bgm-status">完结</span>
+              <% } else { %>
+                <sapn class="bgm-status">{{$value.latest_ep.uptime}} 更新</sapn>
+              <% } %>
+                <div class="target">
+              <% if ($value.broadcast.site == "bilibili") { %>
+                <a href="{{$value.latest_ep.url}}" target="_blank" title="去 Bilibili 观看「第 {{$value.latest_ep.sort}} 话」">第 {{$value.latest_ep.sort}} 话</a>
+              <% } else { %>
+                <button class="am-btn copy" data-clipboard-text="{{$value.latest_ep.url}}" title="复制「第 {{$value.latest_ep.sort}} 话」的 magnet">第 {{$value.latest_ep.sort}} 话</button>
+                <span class="am-icon-cloud-download am-icon-fw"></span>
+              <% } %>
+                </div>
+            <% } else { %>
+              <sapn class="bgm-status">没有集数</sapn>
+            <% } %>
+            </div>
+        </div>
+      </div>
+    {{/each}}
+  </section>
+{{/each}}
+</script>
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="assets/js/jquery.min.js"></script>
+<!--<![endif]-->
+<!--[if lte IE 8 ]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+<script src="assets/js/amazeui.min.js"></script>
+<script src="assets/js/clipboard.min.js"></script>
+
+<script src="assets/js/template.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-57630084-5', 'auto');
+  ga('send', 'pageview');
+</script>
+</div>
+</body>
+</html>
